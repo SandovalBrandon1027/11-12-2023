@@ -3,6 +3,7 @@ const express = require('express')
 const path = require('path');
 
 const { engine }  = require('express-handlebars')
+const methodOverride = require('method-override');
 
 
 // Inicializaciones
@@ -36,6 +37,7 @@ app.set('view engine','.hbs')
 //SERVIDOR VA A TRABAJAR CPN INFORMACION EN BASE
 
 app.use(express.urlencoded({extended:false}))
+app.use(methodOverride('_method'))
 
 
 // Variables globales
@@ -43,6 +45,8 @@ app.use(express.urlencoded({extended:false}))
 // Rutas, llamamos a nuestras rutas
 
 app.use(require('./routers/index.routes'))
+app.use(require('./routers/portafolio.routes'))
+
 
 
 // Archivos estáticos
