@@ -24,18 +24,28 @@ const renderAllPortafolios = async(req,res)=>{
     
     
     // METODOD PARA ACTUALIZAR FORMULARIO
-    const renderEditPortafolioForm = (req,res)=>{
-    res.send('Formulario para editar un portafolio')
+    const renderEditPortafolioForm =async(req,res)=>{
+
+        //consulta del portafolio 
+        const portfolio = await Portfolio.findById(req.params.id).lean()
+        res.render('portafolio/editPortfolio',{portfolio})
     }
     
-    // METODO PARA GUARDAR EN LA BASE DE DATOS
-    const updatePortafolio = (req,res)=>{
-    res.send('Editar un portafolio')
+
+    //MEtodo para guardar el formulario en BDD
+    const updatePortafolio = async(req,res)=>{
+        const {title,category,description}= req.body
+        await Portfolio.findByIdAndUpdate(req.params.id,{title,category,description})
+        res.redirect('/portafolios')
     }
+
+    
     // METODO PARA ELIMINAR EN LA BASE DE DATOS
-    const deletePortafolio = (req,res)=>{
-    res.send('Eliminar un nuevo portafolio')
+    const deletePortafolio = async(req,res)=>{
+        await Portfolio.findByIdAndDelete(req.params.id)
+        res.redirect('/portafolios')
     }
+    
     
     
     const renderPortafolioForm = (req,res)=>{
