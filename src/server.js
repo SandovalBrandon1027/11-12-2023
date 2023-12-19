@@ -9,6 +9,7 @@ const methodOverride = require('method-override');
  //importacion de express-session
 const session = require('express-session');
 
+const fileUpload = require('express-fileupload')
 // Inicializaciones
 //instanciar espress 
 const app = express()
@@ -24,7 +25,12 @@ require('./config/passport')
 app.set('port',process.env.port || 3000)
 app.set('views',path.join(__dirname, 'views'))
 
-// let views = "C:\\Users\\APLICACIONES WEB\\Desktop\\11-12-2023"
+app.use(fileUpload({
+    useTempFiles : true,
+    tempFileDir : './uploads'
+}));
+
+//let views = "C:\\Users\\APLICACIONES WEB\\Desktop\\11-12-2023"
 
 //ESTABLECER LAS CONFIGURACION EXTRAS
 app.set('views',path.join(__dirname, 'views'))
@@ -36,6 +42,8 @@ app.engine('.hbs',engine({
 }))
 
 app.set('view engine','.hbs')
+
+
 // Middlewares 
 //SERVIDOR VA A TRABAJAR CPN INFORMACION EN BASE
 
