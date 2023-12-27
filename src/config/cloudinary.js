@@ -15,3 +15,9 @@ module.exports.uploadImage = async(filePath) => {
 
     return await cloudinary.uploader.upload(filePath,{folder:'portafolio'})
 }
+
+//Para eliminar la imagen del cloudinary
+module.exports.deleteImage = async (publicId)=>{
+    
+    return await cloudinary.uploader.destroy(publicId)
+}
